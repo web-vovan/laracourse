@@ -2,8 +2,6 @@
 
 namespace App\Services\Telegram;
 
-use Exception;
-use Throwable;
 use Illuminate\Support\Facades\Http;
 
 class TelegramBotApi
