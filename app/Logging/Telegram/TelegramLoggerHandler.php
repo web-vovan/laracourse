@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Logging\Telegram;
 
 use App\Services\Telegram\TelegramBotApi;
@@ -17,7 +19,7 @@ class TelegramLoggerHandler extends  AbstractProcessingHandler
 
         parent::__construct($level);
 
-        $this->chatId = $config['chat_id'];
+        $this->chatId = (int) $config['chat_id'];
         $this->token = $config['token'];
     }
 
