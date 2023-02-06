@@ -19,5 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+
+    $product = Product::create([
+        'title' => 'temporibus aliquam',
+        'price' => 123
+    ]);
+
+
+    dd($product);
     return view('welcome');
 });

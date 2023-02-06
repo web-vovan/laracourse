@@ -14,7 +14,7 @@ class ProductFactory extends Factory
     {
         return [
             'title' => $this->faker->words(2, true),
-            'thumbnail' => '',
+            'thumbnail' => $this->faker->localImage('products'),
             'price' => $this->faker->numberBetween(1000, 10000),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
         ];
