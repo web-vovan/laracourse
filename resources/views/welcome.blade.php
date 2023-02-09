@@ -9,6 +9,13 @@
         @vite(['resources/css/app.css', 'resources/sass/main.sass', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        <h1>hello world</h1>
+    @dump(auth()->user())
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+
+        @method('DELETE')
+
+        <button type="submit">выйти</button>
+    </form>
     </body>
 </html>

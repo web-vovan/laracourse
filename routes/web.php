@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Services\Telegram\Exception\TelegramBotApiException;
@@ -19,14 +20,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-
-    $product = Product::create([
-        'title' => 'temporibus aliquam',
-        'price' => 123
-    ]);
-
-
-    dd($product);
     return view('welcome');
+})->name('home');
+
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login', 'authenticate')->name('authenticate');
+
+    Route::delete('/logout', 'logout')->name('logout');
+
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'store')->name('store');
+
+    Route::get('/forgot-password', 'forgotPage')->name('forgot-password');
+    Route::post('/forgot-password', 'forgotPassword')->name('password.email');
+
+    Route::get('/reset-password/{token}', 'passwordReset')->name('password.reset');
+    Route::post('/reset-password', 'passwordUpdate')->name('password.update');
+
+    Route::get('/auth/socialite/github/redirect', 'githubRedirect')
+        ->name('socialite.github.redirect');
+
+    Route::get('/auth/socialite/github/callback', 'githubCallback')
+        ->name('socialite.github.callback');
 });

@@ -7,32 +7,38 @@ use Illuminate\Support\Str;
 
 trait HasSlug
 {
-    public int $slugCounter = 1;
-
     protected static function bootHasSlug()
     {
         static::creating(function (Model $model) {
-            $slugText = $model->slug
-                ?? Str::slug($model->{self::slugFrom()});
-
-            if ($model::query()
-                ->where('slug', $slugText)
-                ->exists() === false
-            ) {
-                $model->slug = $slugText;
-
-                return;
-            }
-
-            while ($model::query()
-                ->where('slug', $slugText . '-' . $model->slugCounter)
-                ->exists()
-            ) {
-                $model->slugCounter++;
-            }
-
-            $model->slug = $slugText . '-' . $model->slugCounter;
+            $model->makeSlug();
         });
+    }
+
+    public function makeSlug(): void
+    {
+        $slugText = $this->slug
+            ?? Str::slug($this->{self::slugFrom()});
+
+        if ($this->isSlugExists($slugText) === false) {
+            $this->slug = $slugText;
+
+            return;
+        }
+
+        $i = 1;
+
+        while ($this->isSlugExists($slugText . '-' . $i)) {
+            $i++;
+        }
+
+        $this->slug = $slugText . '-' . $i;
+    }
+
+    public function isSlugExists(string $slug): bool
+    {
+        return $this::query()
+            ->where('slug', $slug)
+            ->exists();
     }
 
     public static function slugFrom(): string
