@@ -9,6 +9,14 @@
         @vite(['resources/css/app.css', 'resources/sass/main.sass', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
+
+    @if($message = flash()->get())
+        <div class="{{ $message->class() }}">
+            {{ $message->message() }}
+        </div>
+    @endif
+
+
     @dump(auth()->user())
     <form action="{{ route('logout') }}" method="POST">
         @csrf

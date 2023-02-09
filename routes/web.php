@@ -1,11 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Services\Telegram\Exception\TelegramBotApiException;
-use App\Services\Telegram\TelegramBotApi;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,12 +20,16 @@ Route::get('/', function () {
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'authenticate')->name('authenticate');
+    Route::post('/login', 'authenticate')
+        ->middleware('throttle:auth')
+        ->name('authenticate');
 
     Route::delete('/logout', 'logout')->name('logout');
 
     Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'store')->name('store');
+    Route::post('/register', 'store')
+        ->middleware('throttle:auth')
+        ->name('store');
 
     Route::get('/forgot-password', 'forgotPage')->name('forgot-password');
     Route::post('/forgot-password', 'forgotPassword')->name('password.email');
