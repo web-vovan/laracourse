@@ -69,7 +69,7 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): RedirectResponse
     {
         $status = Password::sendResetLink(
             $request->only('email')
