@@ -8,9 +8,22 @@
 
     @vite(['resources/css/app.css', 'resources/sass/main.sass', 'resources/js/app.js'])
 </head>
-<body class="antialiased">
+<body x-data="{ 'showTaskUploadModal': false, 'showTaskEditModal': false }" x-cloak>
 
-    @yield('content')
+    @include('shared.header')
 
+    <main class="py-16 lg:py-20">
+        <div class="container">
+            @include('shared.flash')
+
+            @yield('content')
+        </div>
+    </main>
+
+    @include('shared.footer')
+    @include('shared.mobile-menu')
+    @include('shared.modals')
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </body>
 </html>

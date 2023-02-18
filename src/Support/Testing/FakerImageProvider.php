@@ -19,6 +19,6 @@ class FakerImageProvider extends Base
             false
         );
 
-        return '/' . $storageDir . '/' . $fileName;
+        return '/storage/' . $storageDir . '/' . $fileName;
     }
 }

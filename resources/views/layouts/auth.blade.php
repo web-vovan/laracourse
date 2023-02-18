@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -14,11 +11,9 @@
 <body class="antialiased">
     <main class="md:min-h-screen md:flex md:items-center md:justify-center py-16 lg:py-20">
         <div class="container">
-            @if($message = flash()->get())
-                <div class="{{ $message->class() }}">
-                    {{ $message->message() }}
-                </div>
-            @endif
+
+            @include('shared.flash')
+
             <div class="text-center">
                 <a href="{{ route('home') }}" class="inline-block" rel="home">
                     <img src="{{ Vite::image('logo.svg') }}" class="w-[148px] md:w-[201px] h-[36px] md:h-[50px]" alt="CutCode">
