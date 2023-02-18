@@ -34,10 +34,10 @@ class SocialiteController extends Controller
 
         /** @var User $user */
         $user = User::query()->updateOrCreate([
-            'github_id' => $githubUser->id,
+            'github_id' => $githubUser->getId(),
         ], [
-            'name' => $githubUser->name ?? $githubUser->nickname,
-            'email' => $githubUser->email,
+            'name' => $githubUser->getName() ?? $githubUser->getNickname(),
+            'email' => $githubUser->getEmail(),
             'password' => Hash::make(Str::random(10)),
         ]);
 

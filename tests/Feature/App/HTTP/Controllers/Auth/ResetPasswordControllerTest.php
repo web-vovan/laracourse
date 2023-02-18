@@ -8,6 +8,7 @@ use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class ResetPasswordControllerTest extends TestCase
@@ -21,7 +22,7 @@ class ResetPasswordControllerTest extends TestCase
     {
         $this->createTestUser();
 
-        $token = app(PasswordBroker::class)->createToken($this->testUser);
+        $token = Password::createToken($this->testUser);
 
         $response = $this->get(
             '/reset-password/' . $token,

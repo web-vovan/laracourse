@@ -8,7 +8,7 @@ use Illuminate\Auth\Events\Registered;
 
 class RegisterNewUserAction implements RegisterNewUserContract
 {
-    public function __invoke(array $data): void
+    public function __invoke(array $data): User
     {
         /** @var User $user */
         $user = User::query()->create([
@@ -19,6 +19,6 @@ class RegisterNewUserAction implements RegisterNewUserContract
 
         event(new Registered($user));
 
-        auth()->login($user);
+        return $user;
     }
 }

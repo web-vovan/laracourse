@@ -21,11 +21,9 @@ class SignUpControllerTest extends TestCase
      */
     public function test_registered_page(): void
     {
-        $response = $this->get(
+        $this->get(
             action([SignUpController::class, 'register']),
-        );
-
-        $response
+        )
             ->assertOk()
             ->assertViewIs('auth.register');
     }

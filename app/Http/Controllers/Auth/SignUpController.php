@@ -25,7 +25,9 @@ class SignUpController extends Controller
 
     public function register(StoreRequest $request, RegisterNewUserContract $action): RedirectResponse
     {
-        $action($request->validated());
+        $user = $action($request->validated());
+
+        auth()->login($user);
 
         return redirect()->route('home');
     }
