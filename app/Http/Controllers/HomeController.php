@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
-use Domain\Auth\Contracts\RegisterNewUserContract;
+use Domain\Catalog\ViewModels\BrandViewModel;
+use Domain\Catalog\ViewModels\CategoryViewModel;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $brands = Brand::homePage()->get();
+        $brands = BrandViewModel::make()->homePage();
 
         $products = Product::homePage()->get();
 
-        $categories = Category::homePage()->get();
+        $categories = CategoryViewModel::make()->homePage();
 
         return view('index', compact([
             'brands',

@@ -13,7 +13,8 @@
         "laravel/socialite": "^5.6",
         "laravel/telescope": "^4.12",
         "laravel/tinker": "^2.7",
-        "sentry/sentry-laravel": "^3.1"
+        "sentry/sentry-laravel": "^3.1",
+      "ext-http": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
