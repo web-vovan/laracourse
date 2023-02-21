@@ -5,6 +5,9 @@ namespace Domain\Catalog\Models;
 use Database\Factories\ProductFactory;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 use Support\Casts\PriceCast;
 use Support\Traits\Models\HasSlug;
 use Support\Traits\Models\HasThumbnail;
@@ -25,6 +28,7 @@ class Product extends Model
     use HasFactory;
     use HasSlug;
     use HasThumbnail;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -32,6 +36,7 @@ class Product extends Model
         'thumbnail',
         'brand_id',
         'price',
+        'text',
         'on_home_page',
         'sorting'
     ];
@@ -49,6 +54,15 @@ class Product extends Model
     protected function getThumbnailDir(): string
     {
         return 'products';
+    }
+
+    #[SearchUsingFullText(['title', 'text'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'text' => $this->text,
+        ];
     }
 
     public function scopeHomePage(Builder $query): Builder

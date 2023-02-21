@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(!$this->app->isProduction());
 
         DB::listen(function ($query) {
-            if ($query->time > 200) {
+            if ($query->time > 1000) {
                 logger()
                     ->channel('telegram')
                     ->warning('Слишком долго выполняется запрос: ' . $query->sql, $query->bindings);

@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class PriceCastTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_cast()
     {
         $product = ProductFactory::new()->createOne([
