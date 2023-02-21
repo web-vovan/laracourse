@@ -7,7 +7,7 @@ return [
     ],
     [
         'title' => 'Каталог товаров',
-        'link' => '/'
+        'link' => '/catalog'
     ],
     [
         'title' => 'Корзина',

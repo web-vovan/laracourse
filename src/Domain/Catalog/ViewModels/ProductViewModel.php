@@ -2,19 +2,19 @@
 
 namespace Domain\Catalog\ViewModels;
 
-use Domain\Catalog\Models\Category;
+use Domain\Catalog\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Support\Traits\Makeable;
 
-class CategoryViewModel
+class ProductViewModel
 {
     use Makeable;
 
     public function homePage(): Collection|array
     {
-        return Cache::rememberForever('category_home_page', function() {
-            return Category::query()
+        return Cache::rememberForever('product_home_page', function() {
+            return Product::query()
                 ->homePage()
                 ->get();
         });
@@ -22,6 +22,6 @@ class CategoryViewModel
 
     public function all(): Collection|array
     {
-        return Category::all();
+        return Product::all();
     }
 }

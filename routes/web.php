@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ThumbnailController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,9 @@ Route::group([], base_path('/routes/web/auth.php'));
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
+
+Route::get('/catalog/{category:slug?}', CatalogController::class)
+    ->name('catalog');
 
 Route::get('/storage/images/{dir}/{method}/{size}/{file}', ThumbnailController::class)
     ->where('method', 'resize|crop|fit')

@@ -2,7 +2,6 @@
 
 namespace Domain\Catalog\Models;
 
-use App\Models\Product;
 use Database\Factories\BrandFactory;
 use Domain\Catalog\Collections\BrandCollection;
 use Domain\Catalog\QueryBuilders\BrandQueryBuilder;

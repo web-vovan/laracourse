@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Catalog\Models;
 
+use Database\Factories\ProductFactory;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
 use Support\Casts\PriceCast;
@@ -39,6 +40,12 @@ class Product extends Model
         'price' => PriceCast::class,
     ];
 
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
+    }
+
+
     protected function getThumbnailDir(): string
     {
         return 'products';
@@ -50,6 +57,31 @@ class Product extends Model
             ->where('on_home_page', true)
             ->orderBy('sorting')
             ->limit(6);
+    }
+
+    public function scopeFiltered(Builder $query)
+    {
+        return $query->when(request('filters.brands'), function (Builder $q) {
+            $q->whereIn('brand_id', request('filters.brands'));
+        })->when(request('filters.price'), function (Builder $q) {
+            $q->whereBetween('price', [
+                request('filters.price.from', 0) * 100,
+                request('filters.price.to', 100000) * 100
+            ]);
+        });
+    }
+
+    public function scopeSorted(Builder $query)
+    {
+        return $query->when(request('sort'), function (Builder $q) {
+            $column = request()->str('sort');
+
+            if ($column->contains(['price', 'title'])) {
+                $direction = $column->contains('-') ? 'DESC' : 'ASC';
+
+                $q->orderBy($column->remove('-'), $direction);
+            }
+        });
     }
 
     public function brand(): BelongsTo
