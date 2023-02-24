@@ -3,14 +3,14 @@
 return [
     [
         'title' => 'Главная',
-        'link' => '/'
+        'routeName' => 'home'
     ],
     [
         'title' => 'Каталог товаров',
-        'link' => '/catalog'
+        'routeName' => 'catalog'
     ],
     [
         'title' => 'Корзина',
-        'link' => '/'
+        'routeName' => 'home'
     ],
 ];

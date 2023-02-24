@@ -1,6 +1,8 @@
 <nav class="2xl:flex gap-8">
-    @foreach(Support\Menu::make() as $item)
-        <a href="{{ $item['link'] }}" class="text-white hover:text-pink font-bold">
+    @foreach($menu as $item)
+        <a
+            href="{{ route($item['routeName']) }}"
+            class="text-white hover:text-pink @if(request()->routeIs($item['routeName'])) font-bold @endif">
             {{ $item['title'] }}
         </a>
     @endforeach

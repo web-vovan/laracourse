@@ -1,6 +1,6 @@
 <?php
 
-namespace Support;
+namespace App\Menu;
 
 use Support\Traits\Makeable;
 
