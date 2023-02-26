@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use Database\Factories\ProductFactory;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
+use Illuminate\Pipeline\Pipeline;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
@@ -75,14 +76,18 @@ class Product extends Model
 
     public function scopeFiltered(Builder $query)
     {
-        return $query->when(request('filters.brands'), function (Builder $q) {
-            $q->whereIn('brand_id', request('filters.brands'));
-        })->when(request('filters.price'), function (Builder $q) {
-            $q->whereBetween('price', [
-                request('filters.price.from', 0) * 100,
-                request('filters.price.to', 100000) * 100
-            ]);
-        });
+
+//        // Обычная реализация последовательного вызова фильтров
+//        foreach (filters() as $filter)
+//        {
+//            $filter->apply($query);
+//        }
+
+        // Вызов фильтров через PipeLine
+        return app(Pipeline::class)
+            ->send($query)
+            ->through(filters())
+            ->thenReturn();
     }
 
     public function scopeSorted(Builder $query)
