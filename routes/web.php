@@ -3,6 +3,7 @@
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ThumbnailController;
+use App\Http\Middleware\CatalogView;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -12,6 +13,7 @@ Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
 Route::get('/catalog/{category:slug?}', CatalogController::class)
+    ->middleware(CatalogView::class)
     ->name('catalog');
 
 Route::get('/storage/images/{dir}/{method}/{size}/{file}', ThumbnailController::class)
