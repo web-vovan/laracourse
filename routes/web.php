@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ThumbnailController;
 use App\Http\Middleware\CatalogView;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,9 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/catalog/{category:slug?}', CatalogController::class)
     ->middleware(CatalogView::class)
     ->name('catalog');
+
+Route::get('/product/{product:slug}', [ProductController::class, 'index'])
+    ->name('product');
 
 Route::get('/storage/images/{dir}/{method}/{size}/{file}', ThumbnailController::class)
     ->where('method', 'resize|crop|fit')
