@@ -43,6 +43,8 @@
 </section>
 
 <!-- Watched products  -->
-@include('product.shared.viewed-products')
+@if ($viewedProducts)
+    @include('product.shared.viewed-products')
+@endif
 
 @endsection

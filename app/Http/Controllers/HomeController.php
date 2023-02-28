@@ -11,6 +11,8 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $product = Product::find(1);
+
         $brands = BrandViewModel::make()->homePage();
 
         $products = ProductViewModel::make()->homePage();
