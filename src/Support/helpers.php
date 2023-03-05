@@ -1,6 +1,7 @@
 <?php
 
 use Domain\Catalog\Filters\FilterManager;
+use Domain\Catalog\Models\Category;
 use Domain\Catalog\Sorting\SortingManager;
 use Support\Flash\Flash;
 
@@ -22,5 +23,23 @@ if (!function_exists('sorting')) {
     function sorting(): array
     {
         return app(SortingManager::class)->items();
+    }
+}
+
+if (!function_exists('is_catalog_view')) {
+    function is_catalog_view(string $type): bool
+    {
+        return session('catalog-view', 'grid') === $type;
+    }
+}
+
+if (!function_exists('filter_url')) {
+    function filter_url(?Category $category, array $params = []): string
+    {
+        return route('catalog', [
+            ...request()->only(['filters', 'sort']),
+            ...$params,
+            'category' => $category
+        ]);
     }
 }

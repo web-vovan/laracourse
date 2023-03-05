@@ -31,7 +31,7 @@
             @include('catalog.shared.sort-block')
 
             <!-- Products list -->
-            @if(session('catalog-view') === 'list')
+            @if(is_catalog_view('list'))
                 <div class="products grid grid-cols-1 gap-y-8">
                     @each('catalog.shared.product-inline', $products, 'product')
                 </div>

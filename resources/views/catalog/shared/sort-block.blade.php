@@ -2,7 +2,7 @@
     <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">
             <a
-                href="{{ route('catalog', $category) . '?catalog-view=grid' }}"
+                href="{{ filter_url($category, ['catalog-view' => 'grid']) }}"
                 class="
                     inline-flex
                     items-center
@@ -11,7 +11,7 @@
                     h-10
                     rounded-md
                     bg-card
-                    @if(session('catalog-view') === 'grid')
+                    @if(is_catalog_view('grid'))
                         pointer-events-none text-pink
                     @else
                         text-white hover:text-pink
@@ -22,7 +22,7 @@
                 </svg>
             </a>
             <a
-                href="{{ route('catalog', $category) . '?catalog-view=list' }}"
+                href="{{ filter_url($category, ['catalog-view' => 'list']) }}"
                 class="
                     inline-flex
                     items-center
@@ -31,7 +31,7 @@
                     h-10
                     rounded-md
                     bg-card
-                    @if(session('catalog-view') === 'list')
+                    @if(is_catalog_view('list'))
                     pointer-events-none text-pink
                     @else
                     text-white hover:text-pink
@@ -46,26 +46,26 @@
     </div>
     <div class="flex flex-col sm:flex-row sm:items-center gap-3">
         <span class="text-body text-xxs sm:text-xs">Сортировать по</span>
-        <form
-            x-ref="sortForm"
-            action="{{ route('catalog', $category) }}"
+        <div
+            x-data="{sort: '{{ filter_url($category, ['sort' => request('sort')]) }}' }"
         >
             <select
                 name="sort"
-                x-on:change="$refs.sortForm.submit()"
+                x-model="sort"
+                x-on:change="window.location = sort"
                 class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xxs sm:text-xs shadow-transparent outline-0 transition">
                 <option value="" class="text-dark">умолчанию</option>
 
                 @foreach(sorting() as $item)
                     <option
                         @selected($item->isActive())
-                        value="{{ $item->value() }}"
+                        value="{{ filter_url($category, ['sort' => $item->value()]) }}"
                         class="text-dark"
                     >
                         {{ $item->title() }}
                     </option>
                 @endforeach
             </select>
-        </form>
+        </div>
     </div>
 </div>

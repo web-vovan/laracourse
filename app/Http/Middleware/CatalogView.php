@@ -9,12 +9,8 @@ class CatalogView
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($request->get('catalog-view') === 'grid') {
-            session(['catalog-view' => 'grid']);
-        }
-
-        if ($request->get('catalog-view') === 'list') {
-            session(['catalog-view' => 'list']);
+        if ($request->has('catalog-view')) {
+            $request->session()->put('catalog-view', $request->get('catalog-view'));
         }
 
         return $next($request);
