@@ -54,17 +54,33 @@
                 x-model="sort"
                 x-on:change="window.location = sort"
                 class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xxs sm:text-xs shadow-transparent outline-0 transition">
-                <option value="" class="text-dark">умолчанию</option>
+                <option
+                    value="{{ filter_url($category, ['sort' => '']) }}"
+                    class="text-dark"
+                >
+                    умолчанию
+                </option>
 
-                @foreach(sorting() as $item)
-                    <option
-                        @selected($item->isActive())
-                        value="{{ filter_url($category, ['sort' => $item->value()]) }}"
-                        class="text-dark"
-                    >
-                        {{ $item->title() }}
-                    </option>
-                @endforeach
+                <option
+                    value="{{ filter_url($category, ['sort' => 'price']) }}"
+                    class="text-dark"
+                >
+                    от дешевых к дорогим
+                </option>
+
+                <option
+                    value="{{ filter_url($category, ['sort' => '-price']) }}"
+                    class="text-dark"
+                >
+                    от дорогих к дешевым
+                </option>
+
+                <option
+                    value="{{ filter_url($category, ['sort' => 'title']) }}"
+                    class="text-dark"
+                >
+                    наименованию
+                </option>
             </select>
         </div>
     </div>
