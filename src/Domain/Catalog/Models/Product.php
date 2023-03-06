@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use App\Models\OptionValue;
 use App\Models\Property;
 use Database\Factories\ProductFactory;
+use Domain\Catalog\Facades\Sorter;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
 use Illuminate\Pipeline\Pipeline;
@@ -94,15 +95,7 @@ class Product extends Model
 
     public function scopeSorted(Builder $query)
     {
-        return $query->when(request('sort'), function (Builder $q) {
-            $column = request()->str('sort');
-
-            if ($column->contains(['price', 'title'])) {
-                $direction = $column->contains('-') ? 'DESC' : 'ASC';
-
-                $q->orderBy($column->remove('-'), $direction);
-            }
-        });
+        return Sorter::run($query);
     }
 
     public function brand(): BelongsTo
