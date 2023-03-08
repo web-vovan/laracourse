@@ -1,22 +1,18 @@
 <?php
 
-namespace Domain\Catalog\Models;
+namespace Domain\Product\Models;
 
 use App\Jobs\ProductJsonProperties;
-use App\Models\OptionValue;
-use App\Models\Property;
 use Database\Factories\ProductFactory;
-use Domain\Catalog\Facades\Sorter;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
-use Illuminate\Pipeline\Pipeline;
+use Domain\Product\QueryBuilders\ProductQueryBuilder;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 use Support\Casts\PriceCast;
 use Support\Traits\Models\HasSlug;
 use Support\Traits\Models\HasThumbnail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class Product
  * @package App\Models
  *
- * @method static homePage() Список продуктов на главной
+ * @method static Product|ProductQueryBuilder query()
  */
 class Product extends Model
 {
@@ -81,33 +77,9 @@ class Product extends Model
         ];
     }
 
-    public function scopeHomePage(Builder $query): Builder
+    public function newEloquentBuilder($query)
     {
-        return $query
-            ->where('on_home_page', true)
-            ->orderBy('sorting')
-            ->limit(6);
-    }
-
-    public function scopeFiltered(Builder $query)
-    {
-
-//        // Обычная реализация последовательного вызова фильтров
-//        foreach (filters() as $filter)
-//        {
-//            $filter->apply($query);
-//        }
-
-        // Вызов фильтров через PipeLine
-        return app(Pipeline::class)
-            ->send($query)
-            ->through(filters())
-            ->thenReturn();
-    }
-
-    public function scopeSorted(Builder $query)
-    {
-        return Sorter::run($query);
+        return new ProductQueryBuilder($query);
     }
 
     public function brand(): BelongsTo

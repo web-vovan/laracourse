@@ -13,5 +13,4 @@ class BrandQueryBuilder extends Builder
             ->orderBy('sorting')
             ->limit(6);
     }
-
 }

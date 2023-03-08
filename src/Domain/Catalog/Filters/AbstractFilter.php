@@ -11,7 +11,7 @@ abstract class AbstractFilter implements Stringable
     {
         $this->apply($query);
 
-        $next($query);
+        return $next($query);
     }
 
     abstract public function title(): string;

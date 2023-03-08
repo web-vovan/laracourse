@@ -3,8 +3,8 @@
 namespace Tests\Feature\App\Jobs;
 
 use App\Jobs\ProductJsonProperties;
-use App\Models\Property;
-use Domain\Catalog\Models\Product;
+use Domain\Product\Models\Product;
+use Domain\Product\Models\Property;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;

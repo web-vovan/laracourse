@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Domain\Catalog\Models\Product;
+use Domain\Product\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,12 +12,6 @@ class ProductController extends Controller
     public function index(Product $product): Factory|View|Application
     {
         $product->load(['optionValues.option']);
-
-        $options = $product->optionValues->mapToGroups(function ($item) {
-            return [
-                $item->option->title => $item
-            ];
-        });
 
         $viewedProducts = null;
 
@@ -35,7 +29,7 @@ class ProductController extends Controller
 
         return view('product.index', [
             'product' => $product,
-            'options' => $options,
+            'options' => $product->optionValues->keyValues(),
             'viewedProducts' => $viewedProducts
         ]);
     }

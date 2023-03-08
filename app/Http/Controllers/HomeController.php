@@ -2,29 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Domain\Catalog\Models\Product;
-use Domain\Catalog\ViewModels\BrandViewModel;
-use Domain\Catalog\ViewModels\CategoryViewModel;
-use Domain\Catalog\ViewModels\ProductViewModel;
+use App\ViewModels\HomeViewModel;
 
 class HomeController extends Controller
 {
     public function index()
     {
-
-        Product::factory()->createOne();
-        $product = Product::find(1);
-
-        $brands = BrandViewModel::make()->homePage();
-
-        $products = ProductViewModel::make()->homePage();
-
-        $categories = CategoryViewModel::make()->homePage();
-
-        return view('index', compact([
-            'brands',
-            'products',
-            'categories'
-        ]));
+        return view('index', new HomeViewModel());
     }
 }

@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use Database\Factories\CategoryFactory;
 use Domain\Catalog\Collections\CategoryCollection;
 use Domain\Catalog\QueryBuilders\CategoryQueryBuilder;
+use Domain\Product\Models\Product;
 use Support\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

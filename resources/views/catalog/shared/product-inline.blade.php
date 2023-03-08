@@ -4,7 +4,9 @@
         <img src="{{ $product->makeThumbnail('345x320') }}" class="object-cover w-full h-full" alt="SteelSeries Aerox 3 Snow">
     </a>
     <div class="grow flex flex-col py-8 px-6 md:px-8">
-        <h3 class="text-sm lg:text-md font-black"><a href="" class="inline-block text-white hover:text-pink">{{ $product->title }}</a></h3>
+        <h3 class="text-sm lg:text-md font-black">
+            <a href="{{ route('product', $product) }}" class="inline-block text-white hover:text-pink">{{ $product->title }}</a>
+        </h3>
         <ul class="space-y-1 mt-4 text-xxs">
             @foreach($product->json_properties as $key => $value)
                 <li class="flex justify-between text-body">

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Option;
-use App\Models\OptionValue;
-use App\Models\Property;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
-use Domain\Catalog\Models\Product;
+use Domain\Product\Models\Option;
+use Domain\Product\Models\OptionValue;
+use Domain\Product\Models\Product;
+use Domain\Product\Models\Property;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
