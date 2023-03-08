@@ -2,6 +2,7 @@
 
 namespace Domain\Catalog\Models;
 
+use App\Jobs\ProductJsonProperties;
 use App\Models\OptionValue;
 use App\Models\Property;
 use Database\Factories\ProductFactory;
@@ -42,11 +43,13 @@ class Product extends Model
         'price',
         'text',
         'on_home_page',
-        'sorting'
+        'sorting',
+        'json_properties',
     ];
 
     protected $casts = [
         'price' => PriceCast::class,
+        'json_properties' => 'array'
     ];
 
     protected static function newFactory()
@@ -54,6 +57,15 @@ class Product extends Model
         return ProductFactory::new();
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Product $product) {
+            ProductJsonProperties::dispatch($product)
+                ->delay(now()->addSeconds(10));
+        });
+    }
 
     protected function getThumbnailDir(): string
     {

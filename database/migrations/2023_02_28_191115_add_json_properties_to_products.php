@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->json('json_properties')
+                ->after('text')
                 ->nullable();
         });
     }

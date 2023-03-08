@@ -25,7 +25,7 @@
                 <div class="text-body text-md md:text-lg font-bold line-through">{{ $product->price }}</div>
             </div>
 
-            @include('product.shared.options')
+            @include('product.shared.properties')
 
             <!-- Add to cart -->
             @include('product.shared.add-to-cart')
