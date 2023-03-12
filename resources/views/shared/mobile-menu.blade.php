@@ -42,10 +42,10 @@
                 </a>
             @endauth
             <nav class="flex flex-col mt-8">
-                <a href="index.html" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Главная</a>
-                <a href="catalog.html" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Каталог товаров</a>
+                <a href="{{ route('home') }}" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Главная</a>
+                <a href="{{ route('catalog') }}" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Каталог товаров</a>
                 <a href="orders.html" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Мои заказы</a>
-                <a href="cart.html" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Корзина</a>
+                <a href="{{ route('cart') }}" class="self-start py-1 text-dark hover:text-pink text-md font-bold">Корзина</a>
             </nav>
             <div class="flex flex-wrap items-center space-x-6 mt-8">
                 <a href="#" class="inline-flex items-center text-darkblue hover:text-purple" target="_blank" rel="nofollow noopener">
