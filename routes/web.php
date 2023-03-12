@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 // Auth
 Route::group([], base_path('/routes/web/auth.php'));
+
+// Cart
+Route::group([], base_path('/routes/web/cart.php'));
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
