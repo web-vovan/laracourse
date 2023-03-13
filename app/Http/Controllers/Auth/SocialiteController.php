@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Support\SessionRegenerator;
 use Throwable;
 
 /**
@@ -41,7 +42,7 @@ class SocialiteController extends Controller
             'password' => Hash::make(Str::random(10)),
         ]);
 
-        Auth::login($user);
+        SessionRegenerator::run(fn() => Auth::login($user));
 
         return redirect()->intended(route('home'));
     }

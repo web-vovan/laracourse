@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Support\SessionRegenerator;
 
 /**
  * Вход на сайт
@@ -34,7 +35,7 @@ class SignInController extends Controller
             ])->onlyInput('email');
         }
 
-        $request->session()->regenerate();
+        SessionRegenerator::run();
 
         return redirect()->route('home');
     }
@@ -46,11 +47,7 @@ class SignInController extends Controller
      */
     public function logout(): RedirectResponse
     {
-        auth()->logout();
-
-        request()->session()->invalidate();
-
-        request()->session()->regenerateToken();
+        SessionRegenerator::run(fn() => auth()->logout());
 
         return redirect()->route('home');
     }
