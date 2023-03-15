@@ -34,7 +34,6 @@ class CartController extends Controller
 
     public function quantity(CartItem $item): RedirectResponse
     {
-//        dd(request()->get('quantity'));
         cart()->quantity($item, request('quantity', 1));
 
         flash()->info('Количество товаров изменено');
