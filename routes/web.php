@@ -14,6 +14,9 @@ Route::group([], base_path('/routes/web/auth.php'));
 // Cart
 Route::group([], base_path('/routes/web/cart.php'));
 
+// Order
+Route::group([], base_path('/routes/web/orders.php'));
+
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 

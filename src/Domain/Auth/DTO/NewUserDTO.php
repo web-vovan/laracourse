@@ -19,7 +19,6 @@ class NewUserDTO
 
     public static function fromRequest(Request $request): self
     {
-
         return static::make(...$request->only(['name', 'email', 'password']));
     }
 }
