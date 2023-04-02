@@ -27,6 +27,10 @@ return new class extends Migration
             $table->unsignedInteger('price')
                 ->default(0);
 
+            $table->unsignedBigInteger('quantity')
+                ->comment('Остатки товара на складе')
+                ->default(0);
+
             $table->text('text')
                 ->nullable();
 
