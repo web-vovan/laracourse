@@ -20,6 +20,8 @@ class AssignProducts implements OrderProcessContract
                 })->toArray()
             );
 
+        $cartItem->optionvalues()->sync($optionValues);
+
         return $next($order);
     }
 }
