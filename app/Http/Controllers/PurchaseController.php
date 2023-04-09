@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Domain\Order\Payment\PaymentData;
+use Domain\Order\Payment\PaymentSystem;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Routing\Redirector;
 
 class PurchaseController extends Controller
 {
-    public function index()
+    public function index(): Redirector|Application|RedirectResponse
     {
-        return redirect();
+        return redirect(
+            PaymentSystem::create(new PaymentData())
+                ->url()
+        );
     }
 
-    public function callback()
+    public function callback(): JsonResponse
     {
-        return redirect();
+        return PaymentSystem::validate()
+            ->response();
     }
 }
